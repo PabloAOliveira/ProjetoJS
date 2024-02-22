@@ -9,6 +9,20 @@ function LinkedList() {
 
     this.append = function(element) {
         //adiciona um elemento no final da lista 
+        var node = new Node(element),  
+        current
+
+        if(head == null) {
+            head = node
+        } else{
+            current = head
+
+            while(current.next) {
+                current = current.next
+            }
+            current.next = node
+        }
+        length++
     }
     
     this.insert = function(position, element) {
@@ -17,6 +31,25 @@ function LinkedList() {
 
     this.removeAt = function(position) {
         //remove o elemento de uma posição especifica
+        if(position > -1 && position < length) {     
+            var current = head,
+            previous,
+            index = 0
+            
+            if(position === 0) {
+                head = current.next
+            } else {
+                while(index++ < position) {
+                    previous = current
+                    current = current.next
+                }
+                previous.next = current.next
+            }
+            length--
+            return current.element
+        } else {
+            return null
+        }
     }
 
     this.remove = function(element) {
@@ -37,9 +70,28 @@ function LinkedList() {
 
     this.toString = function() {
         //converte em string 
+        var current = head, 
+        string = ''
+
+        while(current) {
+            string += current.element + ''
+            current = current.next
+        }
+
+        return string
     }
 
     this.print = function() {
         //imprime no console
+        console.log(this.toString())
     }
 }
+
+var ll = new LinkedList()
+ll.append('joão')
+ll.append('jose')
+ll.append('Maria')
+ll.print()
+ll.removeAt(1)
+ll.print()
+console.log('Foi eliminado ' + ll.removeAt(1))
